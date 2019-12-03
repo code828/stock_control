@@ -5,14 +5,14 @@
         <v-head></v-head>
       </el-header>
       <el-container>
-        <el-aside width="200px" :collapse="collapse" style="background-color: rgb(238, 241, 246)">
-          <el-menu :default-openeds="['1', '3']" @select="handleMenuSelect" router>
+        <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+          <el-menu :collapse="collapse" @select="handleMenuSelect" router>
             <el-menu-item index="stock">库存</el-menu-item>
             <el-menu-item index="add">新增</el-menu-item>
             <el-menu-item index="allot">调拨</el-menu-item>
           </el-menu>
         </el-aside>
-        <el-main>
+        <el-main class="content-box" :class="{'content-collapse':collapse}">
           <breadcrumbNav :currentPath="breads"></breadcrumbNav>
           <router-view></router-view>
         </el-main>

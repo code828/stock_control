@@ -1,9 +1,12 @@
 //引入vue
-//import Vue from 'vue';
-import axios from 'axios';
+import Vue from 'vue';
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+
+Vue.use(VueAxios, axios)
 
 //全局状态控制引入
-//import store from '../store/store';
+import store from '../store/store';
 
 //import * as types from '../store/mutation-types';
 //import router from '../router'

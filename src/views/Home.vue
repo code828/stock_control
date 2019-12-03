@@ -16,7 +16,7 @@ export default {
     };
   },
   mounted() {
-    this.axios.get("http://127.0.0.1:8000//backend/stocks/").then(body =>{
+    this.axios.get("http://127.0.0.1:8000/backend/stocks/").then(body =>{
       this.tableData = body.data;
     })
   }

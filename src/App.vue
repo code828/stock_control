@@ -1,10 +1,5 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">首页</router-link> |
-      <router-link to="/lookup">查询</router-link> |
-      <router-link to="/stocking">调拨</router-link>
-    </div>
     <router-view/>
   </div>
 </template>
@@ -31,3 +26,7 @@
   color: #42b983;
 }
 </style>
+<script>
+export default {
+}
+</script>

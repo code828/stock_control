@@ -25,7 +25,7 @@
 </template>
 
 <script>
-	import {login, getAdminInfo} from '@/api/getData'
+	import {login, getAdminInfo} from '@/api/api'
 	import {mapActions, mapState} from 'vuex'
 
 	export default {

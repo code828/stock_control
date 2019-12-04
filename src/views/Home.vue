@@ -13,6 +13,8 @@
 
 <script>
 //import { queryStocks } from '../api/api'
+
+
 import axios from 'axios'
 export default {
   data() {
@@ -22,14 +24,9 @@ export default {
   },
   created() {
     var that = this
-    var listitem=[]
     axios.get('http://127.0.0.1:8000/backend/stocks/').then(function (res) {
-      for(var i=0;i<res.data.result.data.length;i++){
-        console.log(res.data.result.data[i]);
-        listitem.push(res.data.result.data[i])
-      }
-      console.log(listitem)  
-      that.tableData = listitem;
+      console.log('table',res.data.results)  
+      that.tableData = res.data.results;
     })
   }
 };

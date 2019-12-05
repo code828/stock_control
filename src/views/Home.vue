@@ -41,10 +41,7 @@ export default {
     };
   },
   created() {
-    queryStocks().then(response => {
-      this.tableData = response.data.results;
-      this.counts = response.data.count;
-    });
+    this.gettableData;
   },
   methods: {
     handleSizeChange: function(size) {
@@ -54,6 +51,13 @@ export default {
     handleCurrentChange: function(currentPage) {
       this.currentPage = currentPage;
       console.log(this.currentPage); //点击第几页
+      this.gettableData;
+    },
+    gettableData() {
+      queryStocks({page: this.currentPage}).then(response => {
+      this.tableData = response.data.results;
+      this.counts = response.data.count;
+    });
     }
   }
 };

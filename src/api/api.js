@@ -9,4 +9,4 @@ let host = 'http://127.0.0.1:8000';
 
 
 //获取库存信息
-export const queryStocks = () => { return axios.get(`${host}/backend/stocks/`) }
+export const queryStocks = params => { return axios.get(`${host}/backend/stocks/`, { params: params })}

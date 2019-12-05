@@ -2,10 +2,9 @@
   <div>
     <hr />
     <el-table
-      :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+      :data="tableData"
       style="width: 100%"
-      border
-    >
+      border>
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="code" label="资产代码" width="180"></el-table-column>
       <el-table-column prop="name" label="资产名称" width="180"></el-table-column>
@@ -15,15 +14,7 @@
       <el-table-column prop="detail" label="备注" sortable></el-table-column>
     </el-table>
     <div class="block">
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="currentPage"
-        :page-sizes="[5, 10, 20, 40]"
-        :page-size="pagesize"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="counts"
-      ></el-pagination>
+      <el-pagination layout="prev, pager, next" :total="counts" @current-change="current_change"></el-pagination>
     </div>
   </div>
 </template>
@@ -34,26 +25,21 @@ import { queryStocks } from "../api/api";
 export default {
   data() {
     return {
-      currentPage: 1,
-      pagesize: 10,
       tableData: [],
-      counts: 0
+      counts: 0,
+      pagesize: 10,
+      currentPage: 1
     };
   },
-  created() {
-    queryStocks().then(response => {
-      this.tableData = response.data.results;
-      this.counts = response.data.count;
-    });
-  },
   methods: {
-    handleSizeChange: function(size) {
-      this.pagesize = size;
-      console.log(this.pagesize); //每页下拉显示数据
-    },
-    handleCurrentChange: function(currentPage) {
+    current_change: function(currentPage) {
       this.currentPage = currentPage;
-      console.log(this.currentPage); //点击第几页
+    },
+    created() {
+      queryStocks().then(response => {
+        this.tableData = response.data.results;
+        this.counts = response.data.totalnum;
+      });
     }
   }
 };

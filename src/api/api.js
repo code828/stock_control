@@ -5,7 +5,7 @@ import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
 
-let host = 'http://127.0.0.1:8000/';
+let host = 'http://127.0.0.1:8000';
 
 
 //获取库存信息

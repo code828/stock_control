@@ -41,7 +41,7 @@ export default {
   data() {
     return {
       collapse: false,
-      breads: []
+      breads: ['库存']
     };
   },
   methods: {

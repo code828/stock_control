@@ -21,8 +21,8 @@ const routes = [
     path: '/stock',
     component: Stock,
     children: [
-      {path: '',component: Home,name: 'home'},
-      {path: '/allot',component: () => import('../views/Allot.vue'),name: 'allot'}
+      {path: '',component: Home,meta: {title: '库存'}},
+      {path: '/allot',component: () => import('../views/Allot.vue'),meta: {title: '库存'}}
     ]
   }
 ]

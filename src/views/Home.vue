@@ -12,22 +12,25 @@
 </template>
 
 <script>
-//import { queryStocks } from '../api/api'
+import { queryStocks } from '../api/api'
 
 
-import axios from 'axios'
+//import axios from 'axios'
 export default {
   data() {
     return {
       tableData: [],
     }
   },
-  created() {
-    var that = this
-    axios.get('http://127.0.0.1:8000/backend/stocks/').then(function (res) {
+  mounted() {
+    //var that = this
+    /*axios.get('http://127.0.0.1:8000/backend/stocks/').then(function (res) {
       console.log('table',res.data.results)  
       that.tableData = res.data.results;
+    })*/
+    queryStocks().then((response) => {
+      this.tableData = response.data.results
     })
   }
-};
+}
 </script>

@@ -2,7 +2,7 @@
   <div>
     <hr />
     <el-table
-      :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+      :data="tableData"
       style="width: 100%"
       border
     >
@@ -41,7 +41,7 @@ export default {
     };
   },
   created() {
-    this.gettableData;
+    this.gettableData();
   },
   methods: {
     handleSizeChange: function(size) {
@@ -51,13 +51,13 @@ export default {
     handleCurrentChange: function(currentPage) {
       this.currentPage = currentPage;
       console.log(this.currentPage); //点击第几页
-      this.gettableData;
+      this.gettableData();
     },
     gettableData() {
-      queryStocks({page: this.currentPage}).then(response => {
+      queryStocks({page: this.currentPage}).then((response) => {
       this.tableData = response.data.results;
       this.counts = response.data.count;
-    });
+    })
     }
   }
 };

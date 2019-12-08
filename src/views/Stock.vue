@@ -5,7 +5,9 @@
         <v-head></v-head>
       </el-header>
       <el-container>
-        <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+        <el-aside width="150px" style="background-color: rgb(238, 241, 246)">
+          <br>
+          <br>
           <el-menu :collapse="collapse" @select="handleMenuSelect" router>
             <el-menu-item index="stock">库存</el-menu-item>
             <el-menu-item index="add">新增</el-menu-item>

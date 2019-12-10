@@ -21,13 +21,19 @@
       </el-form-item>
     </el-form>
     <el-table :data="tableData" style="width: 100%" border>
-      <el-table-column type="selection" width="55"></el-table-column>
+      <!--<el-table-column type="selection" width="55"></el-table-column>-->
       <el-table-column prop="code" label="资产代码" width="180"></el-table-column>
       <el-table-column prop="name" label="资产名称" width="180"></el-table-column>
       <el-table-column prop="bar_tmp" label="临时条码"></el-table-column>
       <el-table-column prop="barcode" label="总行条码"></el-table-column>
       <el-table-column prop="detail" label="放置地点" sortable></el-table-column>
       <el-table-column prop="address" label="备注" sortable></el-table-column>
+      <el-table-column fixed="right" label="操作" width="100">
+      <template slot-scope="scope">
+        <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+        <el-button @click="stockClick(scope.row)" type="text" size="small">调拨</el-button>
+      </template>
+    </el-table-column>
     </el-table>
     <div class="block">
       <el-pagination

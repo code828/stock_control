@@ -17,7 +17,8 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-button type="primary" @click="dialogFormVisible = true">查询</el-button>
+        <modifyform :dialogFormVisible='dialogFormVisible'></modifyform>
       </el-form-item>
     </el-form>
     <el-table :data="tableData" style="width: 100%" border>
@@ -48,7 +49,8 @@
 </template>
 
 <script>
-import { queryStocks, queryAddress } from "../api/api";
+import { queryStocks, queryAddress } from "../api/api"; 
+import modifyform from './Modifyform'
 //import axios from 'axios'
 export default {
   data() {
@@ -60,9 +62,13 @@ export default {
         name: "",
         region: []
       },
+      dialogFormVisible: false,
       stockaddress: [],
       counts: 0
     };
+  },
+  components:{
+    'modifyform':modifyform
   },
   created() {
     this.getaddressData();

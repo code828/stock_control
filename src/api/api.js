@@ -10,4 +10,9 @@ let host = 'http://127.0.0.1:8000';
 
 //获取库存信息
 export const queryStocks = params => { return axios.get(`${host}/backend/stocks/`, { params: params })};
+
+//获取放置地址
 export const queryAddress = () => { return axios.get(`${host}/backend/address/`)}
+
+//更新库存
+export const updateStocks = (stockId, params) => { return axios.patch(`${host}/stocks/`+stockId+'/', params) }

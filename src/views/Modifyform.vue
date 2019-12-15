@@ -1,39 +1,69 @@
 <template>
   <div>
-    <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
-    <el-form :model="form">
-    <el-form-item label="活动名称" :label-width="formLabelWidth">
-      <el-input v-model="form.name" autocomplete="off"></el-input>
-    </el-form-item>
-    <el-form-item label="活动区域" :label-width="formLabelWidth">
-      <el-select v-model="form.region" placeholder="请选择活动区域">
-        <el-option label="区域一" value="shanghai"></el-option>
-        <el-option label="区域二" value="beijing"></el-option>
-      </el-select>
-    </el-form-item>
-  </el-form>
-  <div slot="footer" class="dialog-footer">
-    <el-button @click="dialogFormVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+    <el-dialog title="资产调拨" :visible.sync="dialogFormVisible">
+      <el-form :model="editForm">
+        <el-form-item label="资产名称" :label-width="formLabelWidth">
+          <el-input v-model="editForm.name" :disabled="true" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="保管部门" :label-width="formLabelWidth">
+          <el-select v-model="editForm.detail" :size="medium" placeholder="请选择保管部门">
+            <el-option
+            v-for="item in stockaddress"
+            :key="item.address"
+            :label="item.address"
+            :value="item.address"
+          ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="备注" :label-width="formLabelWidth">
+          <el-input v-model="editForm.address" autocomplete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="stocking">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
-</el-dialog>
+</template>
+
 <script>
-  export default {
-    data() {
-      return {
-        dialogFormVisible: false,
-        form: {
-          name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
-        },
-        formLabelWidth: '120px'
-      };
+import updateStocks from '../api/api'
+export default {
+  data() {
+    return {
+      //dialogFormVisible: false,
+      formLabelWidth: "120px"
+    };
+  },
+  props: {
+    dialogFormVisible: {
+      type: Boolean,
+      default: false
+    },
+    editForm: {
+      type: Array,
+      default: function() {
+        return []
+      }
+    },
+    stockaddress: {
+      type: Array,
+      default: function() {
+        return []
+      }
     }
-  };
+  },
+  methods: {
+    stocking () {
+      this.dialogFormVisible = false
+      updateStocks({
+        id:this.editForm.id,
+        address:this.editForm.detail,
+      }).then((reponse)=> {
+        
+      })
+    }
+  }
+};
 </script>

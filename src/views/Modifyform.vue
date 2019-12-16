@@ -55,15 +55,14 @@ export default {
     }
   },
   methods: {
-    stocking () {
-      this.dialogFormVisible = false
+    stocking() {
       updateStocks({
         id:this.editForm.id,
         address:this.editForm.detail,
       }).then((reponse)=> {
-        
+      this.dialogFormVisible = false
       })
     }
   }
-};
+}
 </script>

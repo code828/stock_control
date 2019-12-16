@@ -6,7 +6,7 @@
           <el-input v-model="editForm.name" :disabled="true" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="保管部门" :label-width="formLabelWidth">
-          <el-select v-model="editForm.detail" :size="medium" placeholder="请选择保管部门">
+          <el-select v-model="editForm.detail" placeholder="请选择保管部门">
             <el-option
             v-for="item in stockaddress"
             :key="item.address"
@@ -57,11 +57,11 @@ export default {
   methods: {
     stocking () {
       this.dialogFormVisible = false
-      updateStocks({
-        id:this.editForm.id,
-        address:this.editForm.detail,
+      updateStocks(this.editForm.id,{
+        detail:this.editForm.detail,
+        address:this.editForm.address
       }).then((reponse)=> {
-        
+        console.log(reponse.data)
       })
     }
   }

@@ -15,4 +15,4 @@ export const queryStocks = params => { return axios.get(`${host}/backend/stocks/
 export const queryAddress = () => { return axios.get(`${host}/backend/address/`)}
 
 //更新库存
-export const updateStocks = (stockId, params) => { return axios.patch(`${host}/stocks/`+stockId+'/', params) }
+export const updateStocks = (stockId, params) => { return axios.patch(`${host}/backend/stocks/`+stockId+'/', params) }

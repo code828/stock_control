@@ -6,7 +6,7 @@
           <el-input v-model="editForm.name" :disabled="true" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="保管部门" :label-width="formLabelWidth">
-          <el-select v-model="editForm.detail" placeholder="请选择保管部门">
+          <el-select v-model="editForm.address" placeholder="请选择保管部门">
             <el-option
             v-for="item in stockaddress"
             :key="item.address"
@@ -16,7 +16,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="备注" :label-width="formLabelWidth">
-          <el-input v-model="editForm.address" autocomplete="off"></el-input>
+          <el-input v-model="editForm.detail" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import updateStocks from '../api/api'
+import {updateStocks} from '../api/api'
 export default {
   data() {
     return {

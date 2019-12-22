@@ -8,13 +8,14 @@
         <el-aside width="150px" style="background-color: rgb(238, 241, 246)">
           <br>
           <br>
-          <el-menu :collapse="collapse" @select="handleMenuSelect" router>
+          <!--<el-menu :collapse="collapse" @select="handleMenuSelect" router>-->
+          <el-menu  @select="handleMenuSelect" router>
             <el-menu-item index="stock">库存</el-menu-item>
             <el-menu-item index="add">新增</el-menu-item>
             <el-menu-item index="allot">调拨</el-menu-item>
           </el-menu>
         </el-aside>
-        <el-main class="content-box" :class="{'content-collapse':collapse}">
+        <el-main class="content-box" >
           <breadcrumbNav :currentPath="breads"></breadcrumbNav>
           <router-view></router-view>
         </el-main>

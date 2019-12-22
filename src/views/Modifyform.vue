@@ -42,7 +42,7 @@ export default {
       default: false
     },
     editForm: {
-      type: Array,
+      type: Object,
       default: function() {
         return []
       }
@@ -56,13 +56,16 @@ export default {
   },
   methods: {
     stocking () {
-      this.dialogFormVisible = false
       updateStocks(this.editForm.id,{
         detail:this.editForm.detail,
         address:this.editForm.address
       }).then((reponse)=> {
         console.log(reponse.data)
+        alert("数据已调拨！")
+      }).catch(function(error) {
+        console.log(error)
       })
+      this.dialogFormVisible = false
     }
   }
 }

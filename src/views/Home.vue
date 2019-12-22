@@ -7,7 +7,7 @@
       </el-form-item>
       <el-form-item label="放置地点" style="text/css">
         <el-select v-model="formInline.region" placeholder="放置地点" @change="dialogFormVisible=false">
-          <el-option></el-option>
+          <el-option value=""></el-option>
           <el-option
             v-for="item in stockaddress"
             :key="item.address"
@@ -22,20 +22,30 @@
     </el-form>
     <el-table :data="tableData" style="width: 100%" border>
       <!--<el-table-column type="selection" width="55"></el-table-column>-->
+      <el-table-column prop="id" label="id" width="50"></el-table-column>
       <el-table-column prop="code" label="资产代码" width="180"></el-table-column>
       <el-table-column prop="name" label="资产名称" width="180"></el-table-column>
       <el-table-column prop="bar_tmp" label="临时条码"></el-table-column>
       <el-table-column prop="barcode" label="总行条码"></el-table-column>
-      <el-table-column prop="detail" label="放置地点" sortable></el-table-column>
-      <el-table-column prop="address" label="备注" sortable></el-table-column>
+      <el-table-column prop="address" label="放置地点" sortable></el-table-column>
+      <el-table-column prop="detail" label="备注" sortable></el-table-column>
       <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.$index,scope.row)" type="text" size="small">查看</el-button>  
           <el-button @click="stockClick(scope.$index,scope.row)" type="text" size="small">调拨</el-button>
+          <el-button @click="detailClick(scope.$index,scope.row)" type="text" size="small">明细</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <modifyform :dialogFormVisible="dialogFormVisible" :editForm="editForm" :stockaddress="stockaddress"></modifyform>
+    <modifyform
+      :dialogFormVisible="dialogFormVisible"
+      :editForm="editForm"
+      :stockaddress="stockaddress"
+    ></modifyform>
+    <detailform
+      :detailFormVisible="detailFormVisible"
+      :detailid="detailid"
+    ></detailform>
+
     <div class="block">
       <el-pagination
         @size-change="handleSizeChange"
@@ -51,14 +61,17 @@
 <script>
 import { queryStocks, queryAddress } from "../api/api";
 import modifyform from "./Modifyform";
+import detailform from "./Detailform"
 //import axios from 'axios'
 export default {
   data() {
     return {
       dialogFormVisible: false,
+      detailFormVisible: false,
       currentPage: 1,
       pagesize: 10,
       tableData: [],
+      detailid: 1,
       formInline: {
         name: "",
         region: []
@@ -73,7 +86,8 @@ export default {
     };
   },
   components: {
-    modifyform: modifyform
+    modifyform: modifyform,
+    detailform: detailform
   },
   created() {
     this.getaddressData();
@@ -88,31 +102,51 @@ export default {
       console.log(this.currentPage); //点击第几页
       this.gettableData();
     },
-    handleClick(index, row) {
+    stockClick(index, row) {
       console.log(index, row); //这里可打印出每行的内容
       //点击编辑
       this.dialogFormVisible = true; //显示弹框
+      this.detailFormVisible = false;
       let _row = row;
       //将每一行的数据赋值给Dialog弹框（这里是重点）
       this.editForm = Object.assign({}, _row); // editForm是Dialog弹框的data
     },
+    detailClick(index, row) {
+      console.log(index, row); //这里可打印出每行的内容
+      //点击编辑
+      this.detailFormVisible = true; //显示弹框
+      this.dialogFormVisible = false;
+      //将每一行的数据赋值给Dialog弹框（这里是重点）
+      this.detailid = this.tableData[index].id; // editForm是Dialog弹框的data
+    },
     onSubmit() {
+      this.dialogFormVisible = false;
+      this.detailFormVisible = false;
+      this.currentPage = 1;
       this.gettableData();
     },
     gettableData() {
       queryStocks({
         page: this.currentPage,
-        detail: this.formInline.region,
+        address: this.formInline.region,
         search: this.formInline.name
-      }).then(response => {
-        this.tableData = response.data.results;
-        this.counts = response.data.count;
-      });
+      })
+        .then(response => {
+          this.tableData = response.data.results;
+          this.counts = response.data.count;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     },
     getaddressData() {
-      queryAddress().then(response => {
-        this.stockaddress = response.data;
-      });
+      queryAddress()
+        .then(response => {
+          this.stockaddress = response.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     }
   }
 };

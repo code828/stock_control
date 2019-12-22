@@ -16,3 +16,6 @@ export const queryAddress = () => { return axios.get(`${host}/backend/address/`)
 
 //更新库存
 export const updateStocks = (stockId, params) => { return axios.patch(`${host}/backend/stocks/`+stockId+'/', params) }
+
+//调拨记录
+export const queryRecord = params => { return axios.get(`${host}/backend/record/`, { params: params })}

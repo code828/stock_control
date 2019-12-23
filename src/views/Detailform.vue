@@ -7,7 +7,7 @@
         <el-table-column property="add_time" label="时间"></el-table-column>
       </el-table>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="detailFormVisible = false">关闭</el-button>
+        <el-button @click="toParent">关闭</el-button>
       </div>
     </el-dialog>
   </div>
@@ -33,16 +33,24 @@ export default {
       default: 1
     }
   },
-  created() {
+  mounted() {
+      this.querydetail()
+  },
+  methods: {
+    querydetail () {
       queryRecord({
         stocks__id:this.detailid,
         }).then ((reponse) => {
-        this.gridData = reponse.data
+        this.gridData = reponse.data.results
       })
         .catch(function(error) {
           console.log(error);
         });
+    },
+    toParent() {
       this.detailFormVisible = false;
+      this.$emit("toParent",this.detailFormVisible);
     }
   }
+}
 </script>

@@ -41,7 +41,7 @@
       :editForm="editForm"
       :stockaddress="stockaddress"
     ></modifyform>
-    <detailform
+    <detailform @toParent="getMsg"
       :detailFormVisible="detailFormVisible"
       :detailid="detailid"
     ></detailform>
@@ -87,7 +87,7 @@ export default {
   },
   components: {
     modifyform: modifyform,
-    detailform: detailform
+    detailform: detailform,
   },
   created() {
     this.getaddressData();
@@ -99,7 +99,7 @@ export default {
     },
     handleCurrentChange: function(currentPage) {
       this.currentPage = currentPage;
-      console.log(this.currentPage); //点击第几页
+      //console.log(this.currentPage); //点击第几页
       this.gettableData();
     },
     stockClick(index, row) {
@@ -147,6 +147,9 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+    },
+    getMsg(msg) {
+      this.detailFormVisible = msg;
     }
   }
 };

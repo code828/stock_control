@@ -11,8 +11,8 @@
           <!--<el-menu :collapse="collapse" @select="handleMenuSelect" router>-->
           <el-menu  @select="handleMenuSelect" router>
             <el-menu-item index="stock">查询调拨</el-menu-item>
-            <el-menu-item index="add">手工入库</el-menu-item>
-            <el-menu-item index="allot">文件导入</el-menu-item>
+            <el-menu-item index="add">入库</el-menu-item>
+            <el-menu-item index="allot">出库</el-menu-item>
           </el-menu>
         </el-aside>
         <el-main class="content-box" >

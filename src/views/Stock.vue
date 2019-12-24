@@ -10,9 +10,9 @@
           <br>
           <!--<el-menu :collapse="collapse" @select="handleMenuSelect" router>-->
           <el-menu  @select="handleMenuSelect" router>
-            <el-menu-item index="stock">库存</el-menu-item>
-            <el-menu-item index="add">新增</el-menu-item>
-            <el-menu-item index="allot">调拨</el-menu-item>
+            <el-menu-item index="stock">查询调拨</el-menu-item>
+            <el-menu-item index="add">手工入库</el-menu-item>
+            <el-menu-item index="allot">文件导入</el-menu-item>
           </el-menu>
         </el-aside>
         <el-main class="content-box" >

@@ -43,7 +43,7 @@
     ></modifyform>
     <detailform @toParent="getMsg"
       :detailFormVisible="detailFormVisible"
-      :detailid="detailid"
+      :gridData="gridData"
     ></detailform>
 
     <div class="block">
@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { queryStocks, queryAddress } from "../api/api";
+import { queryStocks, queryAddress,queryRecord } from "../api/api";
 import modifyform from "./Modifyform";
 import detailform from "./Detailform"
 //import axios from 'axios'
@@ -71,6 +71,7 @@ export default {
       currentPage: 1,
       pagesize: 10,
       tableData: [],
+      gridData: [],
       detailid: 1,
       formInline: {
         name: "",
@@ -117,7 +118,7 @@ export default {
       this.detailFormVisible = true; //显示弹框
       this.dialogFormVisible = false;
       //将每一行的数据赋值给Dialog弹框（这里是重点）
-      this.detailid = this.tableData[index].id; // editForm是Dialog弹框的data
+      this.querydetail(row.id)
     },
     onSubmit() {
       this.dialogFormVisible = false;
@@ -148,9 +149,19 @@ export default {
           console.log(error);
         });
     },
+    querydetail (index) {
+      queryRecord({
+        stocks__id: index,
+        }).then ((reponse) => {
+        this.gridData = reponse.data
+      })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
     getMsg(msg) {
       this.detailFormVisible = msg;
     }
-  }
+  },
 };
 </script>

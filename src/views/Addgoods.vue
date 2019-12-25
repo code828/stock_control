@@ -10,7 +10,7 @@
       <el-form-item label="商品编号" prop="code">
         <el-input v-model="goodForm.code"></el-input>
       </el-form-item>
-      <el-form-item label="名称" prop="name">
+      <el-form-item label="放置地点" prop="address">
         <el-select v-model="goodForm.address" placeholder="请选择保管部门">
           <el-option label="区域一" value="shanghai"></el-option>
           <el-option label="区域二" value="beijing"></el-option>
@@ -66,9 +66,6 @@
       </el-form-item>
       <el-form-item label="领用日期" prop="out_date">
         <el-input v-model="goodForm.out_date"></el-input>
-      </el-form-item>
-      <el-form-item label="放置地点" prop="address">
-        <el-input v-model="goodForm.address"></el-input>
       </el-form-item>
       <el-form-item label="固定资产编号" prop="tag">
         <el-input v-model="goodForm.tag"></el-input>

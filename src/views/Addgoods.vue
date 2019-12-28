@@ -7,7 +7,7 @@
       :rules="rules"
       ref="goodForm"
       label-width="100px"
-      class="demo-goodForm"
+      class="demo-ruleForm"
     >
       <el-row>
         <el-col :span="11">
@@ -76,7 +76,7 @@
         </el-col>
         <el-col :span="11">
           <el-form-item label="价格" prop="price">
-            <el-input v-model="goodForm.price"></el-input>
+            <el-input v-model.number="goodForm.price"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -164,34 +164,33 @@
 </template>
 
 <script>
-import { queryAddress,addStocks } from "../api/api";
+import { queryAddress, addStocks } from "../api/api";
 export default {
   data() {
     return {
-      stockaddress: [],
       goodForm: {
-        code: "",
-        name: "",
-        type: "",
-        goal: "",
-        bar_tmp: "",
+        code: "ZC00483938",
+        name: "联想TB-X705M平板电脑",
+        type: "联想TB-X705M平板电脑",
+        goal: "综合营销",
+        bar_tmp: "3100014204453468",
         barcode: "",
         kind: "",
-        purchase_date: "",
+        purchase_date: "2019-06-13",
         purchase_method: "购置",
-        attribute: "",
+        attribute: "平板电脑",
         serial: "",
         price: 0,
-        user: "",
-        number: "",
-        keeper: "",
-        code_place: "",
-        place: "",
-        status: "",
-        detail: "",
-        out_date: "",
-        address: "",
-        tag: ""
+        user: "上海自贸区支行",
+        number: "4017",
+        keeper: "钱巍",
+        code_place: "90906001",
+        place: "外高桥保税区马吉路2号",
+        status: "领用",
+        detail: "陈蓓蕾",
+        out_date: "2019-10-25",
+        address: ",杨高南路1楼",
+        tag: "102390000000391562"
       },
       rules: {
         code: [
@@ -207,12 +206,12 @@ export default {
           { min: 4, max: 30, message: "长度在 4 到 30 个字符", trigger: "blur" }
         ],
         goal: [
-          { required: true, message: "请输入资产型号", trigger: "blur" },
-          { min: 4, max: 30, message: "长度在 4 到 30 个字符", trigger: "blur" }
+          { required: true, message: "请输入业务目的", trigger: "blur" },
+          { min: 2, max: 10, message: "长度在 2 到 10 个字符", trigger: "blur" }
         ],
         bar_tmp: [
           { required: true, message: "请输入临时条码", trigger: "blur" },
-          { min: 17, max: 17, message: "长度为17个字符", trigger: "blur" }
+          { min: 16, max: 16, message: "长度为16个字符", trigger: "blur" }
         ],
         kind: [
           { message: "请输入资产类别", trigger: "blur" },
@@ -220,7 +219,7 @@ export default {
         ],
         purchase_date: [
           {
-            type: "date",
+            //type: "date",
             required: true,
             message: "请选择日期",
             trigger: "change"
@@ -228,7 +227,7 @@ export default {
         ],
         purchase_method: [
           { required: true, message: "请输入购置方式", trigger: "blur" },
-          { min: 4, max: 6, message: "长度为4-6个字符", trigger: "blur" }
+          { min: 2, max: 6, message: "长度为2-6个字符", trigger: "blur" }
         ],
         attribute: [
           { required: true, message: "请选择物理属性", trigger: "blur" },
@@ -252,7 +251,7 @@ export default {
         ],
         number: [
           { required: true, message: "请输入使用人工号", trigger: "blur" },
-          { min: 5, max: 10, message: "长度为5-10个字符", trigger: "blur" }
+          { min: 4, max: 10, message: "长度为4-10个字符", trigger: "blur" }
         ],
         keeper: [
           { required: true, message: "请输入使用人姓名", trigger: "blur" },
@@ -276,7 +275,7 @@ export default {
         ],
         out_date: [
           {
-            type: "date",
+            //type: "date",
             required: true,
             message: "请选择领用日期",
             trigger: "change"
@@ -290,7 +289,8 @@ export default {
           { message: "请输入固定资产编号", trigger: "blur" },
           { min: 18, max: 18, message: "长度为18个字符", trigger: "blur" }
         ]
-      }
+      },
+      stockaddress: [],
     };
   },
   created() {
@@ -298,26 +298,28 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate(async (valid) => {
         if (valid) {
-          Object.assign(this.goodForm)
-						try{
-							let result =  addStocks(this.formData);
-							if (result.status == 1) {
-								this.$message({
-					            	type: 'success',
-					            	message: '添加成功'
-					          	});
-              }
-              else {
-                console.log("error submit!!");
-                return false;
-              }
-            }catch(err){
-    				  console.log(err);
+          try {
+            let result = await addStocks(this.goodForm);
+            if (result.status == 201) {
+              this.$message({
+                type: "success",
+                message: "添加成功"
+              });
+            } else {
+              this.$message({
+                type: "error",
+                message: result.status
+              });
+              console.log("error submit!!");
+              return false;
             }
+          } catch (err) {
+            console.log(err);
           }
-      }
+        }
+      });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

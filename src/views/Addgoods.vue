@@ -310,7 +310,7 @@ export default {
             } else {
               this.$message({
                 type: "error",
-                message: result.status
+                message: "插入重复记录！"
               });
               console.log("error submit!!");
               return false;

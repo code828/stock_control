@@ -2,12 +2,15 @@
   <div>
     <hr />
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
+      <el-form-item label="仅固定资产">
+        <el-switch v-model="fixed" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+      </el-form-item>
       <el-form-item label="资产名称">
         <el-input v-model="formInline.name" placeholder="资产名称"></el-input>
       </el-form-item>
       <el-form-item label="放置地点" style="text/css">
         <el-select v-model="formInline.region" placeholder="放置地点" @change="dialogFormVisible=false">
-          <el-option value=""></el-option>
+          <el-option value></el-option>
           <el-option
             v-for="item in stockaddress"
             :key="item.address"
@@ -41,10 +44,7 @@
       :editForm="editForm"
       :stockaddress="stockaddress"
     ></modifyform>
-    <detailform @toParent="getMsg"
-      :detailFormVisible="detailFormVisible"
-      :gridData="gridData"
-    ></detailform>
+    <detailform @toParent="getMsg" :detailFormVisible="detailFormVisible" :gridData="gridData"></detailform>
 
     <div class="block">
       <el-pagination
@@ -59,15 +59,16 @@
 </template>
 
 <script>
-import { queryStocks, queryAddress,queryRecord } from "../api/api";
+import { queryStocks, queryAddress, queryRecord } from "../api/api";
 import modifyform from "./Modifyform";
-import detailform from "./Detailform"
+import detailform from "./Detailform";
 //import axios from 'axios'
 export default {
   data() {
     return {
       dialogFormVisible: false,
       detailFormVisible: false,
+      fixed: false,
       currentPage: 1,
       pagesize: 10,
       tableData: [],
@@ -88,7 +89,7 @@ export default {
   },
   components: {
     modifyform: modifyform,
-    detailform: detailform,
+    detailform: detailform
   },
   created() {
     this.getaddressData();
@@ -118,7 +119,7 @@ export default {
       this.detailFormVisible = true; //显示弹框
       this.dialogFormVisible = false;
       //将每一行的数据赋值给Dialog弹框（这里是重点）
-      this.querydetail(row.id)
+      this.querydetail(row.id);
     },
     onSubmit() {
       this.dialogFormVisible = false;
@@ -130,6 +131,7 @@ export default {
       queryStocks({
         page: this.currentPage,
         address: this.formInline.region,
+        fixed: this.fixed,
         search: this.formInline.name
       })
         .then(response => {
@@ -149,12 +151,13 @@ export default {
           console.log(error);
         });
     },
-    querydetail (index) {
+    querydetail(index) {
       queryRecord({
-        stocks__id: index,
-        }).then ((reponse) => {
-        this.gridData = reponse.data
+        stocks__id: index
       })
+        .then(reponse => {
+          this.gridData = reponse.data;
+        })
         .catch(function(error) {
           console.log(error);
         });
@@ -162,6 +165,6 @@ export default {
     getMsg(msg) {
       this.detailFormVisible = msg;
     }
-  },
+  }
 };
 </script>

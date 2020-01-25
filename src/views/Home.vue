@@ -30,7 +30,7 @@
       <el-table-column prop="name" label="资产名称" width="180"></el-table-column>
       <el-table-column prop="bar_tmp" label="临时条码"></el-table-column>
       <el-table-column prop="address" label="放置地点" sortable></el-table-column>
-      <el-table-column prop="detail" label="备注" sortable></el-table-column>
+      <el-table-column prop="detail" label="备注" width="120" sortable></el-table-column>
       <el-table-column prop="tag" label="固定资产编号"></el-table-column>
       <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">

@@ -40,7 +40,7 @@ export default {
         return {
             collapse: false,
             fullscreen: false,
-            name: 'linxin',
+            name: 'user',
             message: 2
         };
     },

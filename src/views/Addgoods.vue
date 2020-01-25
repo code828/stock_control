@@ -189,7 +189,7 @@ export default {
         status: "领用",
         detail: "陈蓓蕾",
         out_date: "2019-10-25",
-        address: ",杨高南路1楼",
+        address: "杨高南路1楼",
         tag: "102390000000391562"
       },
       rules: {
